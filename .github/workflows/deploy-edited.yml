@@ -7,6 +7,7 @@ on:
         description: '.net framework'
         type: string
         required: true
+        default: net6.0
       branch:
         description: 'Git branch used for this build'
         type: string
