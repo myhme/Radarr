@@ -387,7 +387,6 @@ then
         if [ "$ENABLE_EXTRA_PLATFORMS" = "YES" ];
         then
             PackageTests "net6.0" "freebsd-x64"
-            PackageTests "net6.0" "linux-x86"
         fi
     else
         PackageTests "$FRAMEWORK" "$RID"
@@ -428,17 +427,8 @@ then
         if [ "$ENABLE_EXTRA_PLATFORMS" = "YES" ];
         then
             Package "net6.0" "freebsd-x64"
-            Package "net6.0" "linux-x86"
         fi
     else
         Package "$FRAMEWORK" "$RID"
     fi
-fi
-
-if [ "$INSTALLER" = "YES" ];
-then
-    InstallInno
-    BuildInstaller "net6.0" "win-x64"
-    BuildInstaller "net6.0" "win-x86"
-    RemoveInno
 fi
