@@ -16,25 +16,6 @@ env:
   RAW_BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
   RADARR_MAJOR_VERSION: 5
   VERSION: 5.16.3
-
-
-  outputFolder: ./_output
-  artifactsFolder: ./_artifacts
-  testsFolder: ./_tests
-  yarnCacheFolder: ${{ env.Pipeline.Workspace }}/.yarn
-  nugetCacheFolder: ${{ env.Pipeline.Workspace }}/.nuget/packages
-  majorVersion: 
-  minorVersion: $[counter('minorVersion', 2000)]
-  radarrVersion: ${{ env.majorVersion }}.${{ env.minorVersion }}
-  buildName: ${{ env.Build.SourceBranchName }}.${{ env.radarrVersion }}
-  sentryOrg: servarr
-  sentryUrl: https://sentry.servarr.com
-  dotnetVersion: 6.0.427
-  nodeVersion: 20.X
-  innoVersion: 6.2.2
-  windowsImage: windows-2022
-  linuxImage: ubuntu-20.04
-  macImage: macOS-13
   
 jobs:
   backend:
