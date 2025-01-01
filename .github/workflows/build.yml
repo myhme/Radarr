@@ -37,9 +37,10 @@ jobs:
         id: variables
         shell: bash
         run: |
+          echo "{"\"sdk\"":{"\"version"\":\"$(grep  "dotnetVersion: "  azure-pipelines.yml | sed 's/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/')\"}}" > global.json
           # Add 800 to the build number because GitHub won't let us pick an arbitrary starting point
           RADARR_VERSION="${{ env.VERSION }}.$((${{ github.run_number }}+800))"
-          DOTNET_VERSION=$(grep  "dotnetVersion: "  azure-pipelines.yml | sed 's/^.*[^0-9]\([0-9]*\.[0-9]*\.[0-9]*\).*$/\1/')
+          DOTNET_VERSION=$(jq -r '.sdk.version' global.json)
 
           echo "SDK_PATH=${{ env.DOTNET_ROOT }}/sdk/${DOTNET_VERSION}" >> "$GITHUB_ENV"
           echo "RADARR_VERSION=$RADARR_VERSION" >> "$GITHUB_ENV"
