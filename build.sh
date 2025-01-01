@@ -4,30 +4,32 @@ set -e
 outputFolder='_output'
 testPackageFolder='_tests'
 artifactsFolder="_artifacts";
+framework="${FRAMEWORK:=net6.0}"
 
 ProgressStart()
 {
+    echo "::group::$1"
     echo "Start '$1'"
 }
 
 ProgressEnd()
 {
     echo "Finish '$1'"
+	echo "::endgroup::"
 }
 
 UpdateVersionNumber()
 {
-    if [ "$RADARRVERSION" != "" ]; then
+    if [ "$RADARR_VERSION" != "" ]; then
         echo "Updating Version Info"
-        sed -i'' -e "s/<AssemblyVersion>[0-9.*]\+<\/AssemblyVersion>/<AssemblyVersion>$RADARRVERSION<\/AssemblyVersion>/g" src/Directory.Build.props
+        sed -i'' -e "s/<AssemblyVersion>[0-9.*]\+<\/AssemblyVersion>/<AssemblyVersion>$RADARR_VERSION<\/AssemblyVersion>/g" src/Directory.Build.props
         sed -i'' -e "s/<AssemblyConfiguration>[\$()A-Za-z-]\+<\/AssemblyConfiguration>/<AssemblyConfiguration>${BUILD_SOURCEBRANCHNAME}<\/AssemblyConfiguration>/g" src/Directory.Build.props
-        sed -i'' -e "s/<string>10.0.0.0<\/string>/<string>$RADARRVERSION<\/string>/g" distribution/osx/Radarr.app/Contents/Info.plist
+        sed -i'' -e "s/<string>10.0.0.0<\/string>/<string>$RADARR_VERSION<\/string>/g" distribution/osx/Radarr.app/Contents/Info.plist
     fi
 }
 
 EnableExtraPlatformsInSDK()
 {
-    SDK_PATH=$(dotnet --list-sdks | grep -P '6\.\d\.\d+' | head -1 | sed 's/\(6\.[0-9]*\.[0-9]*\).*\[\(.*\)\]/\2\/\1/g')
     BUNDLEDVERSIONS="${SDK_PATH}/Microsoft.NETCoreSdk.BundledVersions.props"
     if grep -q freebsd-x64 $BUNDLEDVERSIONS; then
         echo "Extra platforms already enabled"
