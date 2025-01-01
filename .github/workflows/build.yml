@@ -104,7 +104,7 @@ jobs:
           path: _output/UI/**/*
 
   deploy:
-    if: ${{ github.ref_name == 'develop' || github.ref_name == 'main' }}
+    if: ${{ github.ref_name == 'develop' || github.ref_name == 'master' }}
     needs: [backend, frontend]
     secrets: inherit
     uses: ./.github/workflows/deploy-edited.yml
