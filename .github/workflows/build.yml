@@ -1,0 +1,134 @@
+name: Build
+
+on:
+ push:
+   branches:
+     - master
+   paths-ignore:
+      - src/Radarr.Api.*/openapi.json
+
+concurrency:
+ group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+ cancel-in-progress: true
+
+env:
+  FRAMEWORK: net6.0
+  RAW_BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+  RADARR_MAJOR_VERSION: 5
+  VERSION: 5.16.3
+
+
+  outputFolder: ./_output
+  artifactsFolder: ./_artifacts
+  testsFolder: ./_tests
+  yarnCacheFolder: ${{ env.Pipeline.Workspace }}/.yarn
+  nugetCacheFolder: ${{ env.Pipeline.Workspace }}/.nuget/packages
+  majorVersion: 
+  minorVersion: $[counter('minorVersion', 2000)]
+  radarrVersion: ${{ env.majorVersion }}.${{ env.minorVersion }}
+  buildName: ${{ env.Build.SourceBranchName }}.${{ env.radarrVersion }}
+  sentryOrg: servarr
+  sentryUrl: https://sentry.servarr.com
+  dotnetVersion: 6.0.427
+  nodeVersion: 20.X
+  innoVersion: 6.2.2
+  windowsImage: windows-2022
+  linuxImage: ubuntu-20.04
+  macImage: macOS-13
+  
+jobs:
+  backend:
+    runs-on: windows-latest
+    outputs:
+      framework: ${{ steps.variables.outputs.framework }}
+      major_version: ${{ steps.variables.outputs.major_version }}
+      version: ${{ steps.variables.outputs.version }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+
+      - name: Setup Environment Variables
+        id: variables
+        shell: bash
+        run: |
+          RADARR_VERSION="${{ env.VERSION }}.$((${{ github.run_number }}+800))"
+          DOTNET_VERSION=$(jq -r '.sdk.version' global.json)
+          
+          # Add 800 to the build number because GitHub won't let us pick an arbitrary starting point
+          RADARR_VERSION="${{ env.VERSION }}.$((${{ github.run_number }}+800))"
+          DOTNET_VERSION=$(jq -r '.sdk.version' global.json)
+
+          echo "SDK_PATH=${{ env.DOTNET_ROOT }}/sdk/${DOTNET_VERSION}" >> "$GITHUB_ENV"
+          echo "RADARR_VERSION=$RADARR_VERSION" >> "$GITHUB_ENV"
+          echo "BRANCH=${RAW_BRANCH_NAME//\//-}" >> "$GITHUB_ENV"
+
+          echo "framework=${{ env.FRAMEWORK }}" >> "$GITHUB_OUTPUT"
+          echo "major_version=${{ env.RADARR_MAJOR_VERSION }}" >> "$GITHUB_OUTPUT"
+          echo "version=$RADARR_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Enable Extra Platforms In SDK
+        shell: bash
+        run: ./build.sh --enable-extra-platforms-in-sdk
+
+      - name: Build Backend
+        shell: bash
+        run: ./build.sh --backend --enable-extra-platforms --packages
+
+      # Test Artifacts
+
+      - name: Publish linux-x64 Test Artifact
+        uses: ./.github/actions/publish-test-artifact
+        with:
+          framework: ${{ env.FRAMEWORK }}
+          runtime: linux-x64
+
+      # Build Artifacts (grouped by OS)
+
+      - name: Publish Linux Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build_linux
+          path: _artifacts/linux-*/**/*
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Volta
+        uses: volta-cli/action@v4
+
+      - name: Yarn Install
+        run: yarn install
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Stylelint
+        run: yarn stylelint -f github
+
+      - name: Build
+        run: yarn build --env production
+
+      - name: Publish UI Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build_ui
+          path: _output/UI/**/*
+
+  deploy:
+    if: ${{ github.ref_name == 'develop' || github.ref_name == 'main' }}
+    needs: [backend, frontend]
+    secrets: inherit
+    uses: ./.github/workflows/deploy-edited.yml
+    with:
+      framework: ${{ needs.backend.outputs.framework }}
+      branch: ${{ github.ref_name }}
+      major_version: ${{ needs.backend.outputs.major_version }}
+      version: ${{ needs.backend.outputs.version }}
