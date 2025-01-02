@@ -75,7 +75,6 @@ namespace NzbDrone.Core.MediaFiles.MediaInfo
                     analysis = FFProbe.AnalyseStreamJson(ffprobeOutput);
                 }
 
-
                 var mediaInfoModel = new MediaInfoModel();
                 mediaInfoModel.ContainerFormat = analysis.Format.FormatName;
                 mediaInfoModel.VideoFormat = primaryVideoStream?.CodecName;
