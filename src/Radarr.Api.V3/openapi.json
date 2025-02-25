@@ -9908,6 +9908,19 @@
         ],
         "type": "string"
       },
+      "ImportRejectionResource": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "$ref": "#/components/schemas/RejectionType"
+          }
+        },
+        "additionalProperties": false
+      },
       "IndexerBulkResource": {
         "type": "object",
         "properties": {
@@ -10284,7 +10297,7 @@
           "rejections": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Rejection"
+              "$ref": "#/components/schemas/ImportRejectionResource"
             },
             "nullable": true
           }
@@ -10321,6 +10334,15 @@
           "movie": {
             "$ref": "#/components/schemas/MovieResource"
           },
+          "movieFileId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "releaseGroup": {
+            "type": "string",
+            "nullable": true
+          },
           "quality": {
             "$ref": "#/components/schemas/QualityModel"
           },
@@ -10329,10 +10351,6 @@
             "items": {
               "$ref": "#/components/schemas/Language"
             },
-            "nullable": true
-          },
-          "releaseGroup": {
-            "type": "string",
             "nullable": true
           },
           "qualityWeight": {
@@ -10361,7 +10379,7 @@
           "rejections": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Rejection"
+              "$ref": "#/components/schemas/ImportRejectionResource"
             },
             "nullable": true
           }
@@ -11882,19 +11900,6 @@
         },
         "additionalProperties": false
       },
-      "Rejection": {
-        "type": "object",
-        "properties": {
-          "reason": {
-            "type": "string",
-            "nullable": true
-          },
-          "type": {
-            "$ref": "#/components/schemas/RejectionType"
-          }
-        },
-        "additionalProperties": false
-      },
       "RejectionType": {
         "enum": [
           "permanent",
@@ -12068,6 +12073,9 @@
           "infoUrl": {
             "type": "string",
             "nullable": true
+          },
+          "movieRequested": {
+            "type": "boolean"
           },
           "downloadAllowed": {
             "type": "boolean"
