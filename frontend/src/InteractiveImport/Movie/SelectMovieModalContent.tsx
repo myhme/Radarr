@@ -65,7 +65,7 @@ interface RowItemData {
 }
 
 function Row({ index, style, data }: ListChildComponentProps<RowItemData>) {
-  const { items, columns, onMovieSelect } = data;
+  const { items, onMovieSelect } = data;
   const movie = index >= items.length ? null : items[index];
 
   const handlePress = useCallback(() => {
@@ -88,13 +88,11 @@ function Row({ index, style, data }: ListChildComponentProps<RowItemData>) {
       onPress={handlePress}
     >
       <SelectMovieRow
-        id={movie.id}
+        key={movie.id}
         title={movie.title}
         tmdbId={movie.tmdbId}
         imdbId={movie.imdbId}
         year={movie.year}
-        columns={columns}
-        onMovieSelect={onMovieSelect}
       />
     </VirtualTableRowButton>
   );
@@ -181,7 +179,9 @@ function SelectMovieModalContent(props: SelectMovieModalContentProps) {
 
   return (
     <ModalContent onModalClose={onModalClose}>
-      <ModalHeader>{modalTitle} - Select Movie</ModalHeader>
+      <ModalHeader>
+        {translate('SelectMovieModalTitle', { modalTitle })}
+      </ModalHeader>
 
       <ModalBody
         className={styles.modalBody}
@@ -189,7 +189,7 @@ function SelectMovieModalContent(props: SelectMovieModalContentProps) {
       >
         <TextInput
           className={styles.filterInput}
-          placeholder="Filter movies"
+          placeholder={translate('FilterMoviePlaceholder')}
           name="filter"
           value={filter}
           autoFocus={true}
@@ -225,7 +225,7 @@ function SelectMovieModalContent(props: SelectMovieModalContentProps) {
       </ModalBody>
 
       <ModalFooter>
-        <Button onPress={onModalClose}>Cancel</Button>
+        <Button onPress={onModalClose}>{translate('Cancel')}</Button>
       </ModalFooter>
     </ModalContent>
   );
