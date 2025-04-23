@@ -10,7 +10,14 @@ namespace NzbDrone.Core.ImportLists.Trakt.Popular
     {
         public TraktPopularSettingsValidator()
         {
-            RuleFor(c => c.TraktListType).NotNull();
+            RuleFor(c => c.TraktListType)
+                .NotNull()
+#pragma warning disable CS0612
+                .NotEqual((int)TraktPopularListType.TopWatchedByYear)
+                .WithMessage("Yearly lists are no longer supported")
+                .NotEqual((int)TraktPopularListType.RecommendedByYear)
+                .WithMessage("Yearly lists are no longer supported");
+#pragma warning restore CS0612
 
             // Loose validation @TODO
             RuleFor(c => c.Rating)
@@ -22,7 +29,7 @@ namespace NzbDrone.Core.ImportLists.Trakt.Popular
             RuleFor(c => c.Certification)
                 .Matches(@"^\bNR\b|\bG\b|\bPG\b|\bPG\-13\b|\bR\b|\bNC\-17\b$", RegexOptions.IgnoreCase)
                 .When(c => c.Certification.IsNotNullOrWhiteSpace())
-                .WithMessage("Not a valid cerification");
+                .WithMessage("Not a valid certification");
 
             // Loose validation @TODO
             RuleFor(c => c.Years)

@@ -596,7 +596,7 @@
     "TestAllClients": "Tester tous les clients",
     "TagCannotBeDeletedWhileInUse": "Ne peut pas être supprimé pendant l'utilisation",
     "SuggestTranslationChange": "Suggérer un changement de traduction",
-    "SubfolderWillBeCreatedAutomaticallyInterp": "'{0}' le sous-dossier sera créé automatiquement",
+    "AddNewMovieRootFolderHelpText": "'{0}' le sous-dossier sera créé automatiquement",
     "StartupDirectory": "Répertoire de démarrage",
     "StandardMovieFormat": "Format de film standard",
     "SslPort": "Port SSL",
@@ -1968,5 +1968,17 @@
     "IndexerSettingsApiUrl": "URL DE L'API",
     "IndexerSettingsCookieHelpText": "Si votre site nécessite un cookie de connexion pour accéder au flux RSS, vous devrez le récupérer via un navigateur.",
     "BlocklistedAt": "Mis sur liste noire le {date}",
-    "FailedAt": "Échoué le {date}"
+    "FailedAt": "Échoué le {date}",
+    "IndexerSettingsFailDownloads": "Échec des téléchargements",
+    "FileSize": "Taille de fichier",
+    "DownloadClientItemErrorMessage": "{clientName} signale une erreur : {message}",
+    "GrabbedAt": "Capturé le {date}",
+    "IndexerSettingsFailDownloadsHelpText": "Lors du traitement des téléchargements terminés, {appName} traitera ces types de fichiers sélectionnés comme des téléchargements ayant échoué.",
+    "DownloadClientUTorrentProviderMessage": "uTorrent a un historique d'inclusion de cryptomineurs, de logiciels malveillants et de publicités. Nous vous recommandons fortement de choisir un autre client.",
+    "MyComputer": "Mon ordinateur",
+    "UpdatePath": "Chemin de mise à jour",
+    "ImportListsRadarrSettingsFullUrl": "URL complète",
+    "ImportListsRadarrSettingsRootFoldersHelpText": "Dossiers racine de l'instance source à partir de laquelle l'importation doit être effectuée",
+    "ImportListsRadarrSettingsTagsHelpText": "Tags de l'instance source à importer",
+    "ImportListsRadarrSettingsQualityProfilesHelpText": "Profils de qualité de l'instance source à importer"
 }

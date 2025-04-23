@@ -832,7 +832,7 @@
     "Status": "상태",
     "Studio": "스튜디오",
     "Style": "스타일",
-    "SubfolderWillBeCreatedAutomaticallyInterp": "'{0}' 하위 폴더가 자동으로 생성됩니다",
+    "AddNewMovieRootFolderHelpText": "'{0}' 하위 폴더가 자동으로 생성됩니다",
     "Sunday": "일요일",
     "Table": "테이블",
     "TableColumnsHelpText": "표시되는 열과 표시되는 순서를 선택하세요",
@@ -1929,5 +1929,8 @@
     "IndexerSettingsApiUrl": "API 주소",
     "IndexerSettingsCategories": "카테고리",
     "IndexerSettingsRssUrl": "RSS URL",
-    "IndexerIPTorrentsSettingsFeedUrlHelpText": "IPTorrents가 선택한 카테고리(HD, SD, x264 등)만을 사용하여 생성한 전체 RSS 피드 URL"
+    "IndexerIPTorrentsSettingsFeedUrlHelpText": "IPTorrents가 선택한 카테고리(HD, SD, x264 등)만을 사용하여 생성한 전체 RSS 피드 URL",
+    "FileSize": "파일 크기",
+    "IndexerSettingsFailDownloadsHelpText": "완료된 다운로드를 처리하는 동안 {appName}는 선택된 파일 유형을 실패한 다운로드로 처리합니다.",
+    "ImportListsRadarrSettingsFullUrl": "전체 URL"
 }

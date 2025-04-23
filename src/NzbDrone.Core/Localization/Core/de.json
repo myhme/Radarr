@@ -579,7 +579,7 @@
     "WaitingToImport": "Warten auf Import",
     "UpgradeUntilThisQualityIsMetOrExceeded": "Führe ein Upgrade durch, bis diese Qualität erreicht oder überschritten wird",
     "TagCannotBeDeletedWhileInUse": "Kann während der Benutzung nicht gelöscht werden",
-    "SubfolderWillBeCreatedAutomaticallyInterp": "'{0}' Unterordner wird automatisch erstellt",
+    "AddNewMovieRootFolderHelpText": "'{0}' Unterordner wird automatisch erstellt",
     "SslCertPathHelpText": "Pfad zur PFX Datei",
     "SslCertPasswordHelpText": "Passwort für die PFX Datei",
     "ShowYear": "Jahr anzeigen",
@@ -1966,5 +1966,13 @@
     "IndexerSettingsMinimumSeeders": "Minimale Seeder",
     "IndexerSettingsMinimumSeedersHelpText": "Minimale Anzahl an Seedern, die erforderlich ist.",
     "IndexerSettingsPasskey": "Passkey",
-    "IndexerSettingsRssUrl": "RSS-URL"
+    "IndexerSettingsRssUrl": "RSS-URL",
+    "IndexerSettingsFailDownloads": "Fehlgeschlagene Downloads",
+    "IndexerSettingsFailDownloadsHelpText": "Beim Verarbeiten abgeschlossener Downloads behandelt {appName} diese ausgewählten Dateitypen als fehlgeschlagene Downloads.",
+    "MyComputer": "Mein Computer",
+    "UpdatePath": "Update-Pfad",
+    "ImportListsRadarrSettingsQualityProfilesHelpText": "Qualitätsprofile von der Quellinstanz, von der importiert werden soll",
+    "ImportListsRadarrSettingsRootFoldersHelpText": "Root-Ordner von der Quellinstanz, von der importiert werden soll",
+    "ImportListsRadarrSettingsFullUrl": "Vollständige URL",
+    "ImportListsRadarrSettingsTagsHelpText": "Tags von der Quellinstanz zum Importieren"
 }

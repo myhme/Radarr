@@ -5374,6 +5374,29 @@
         }
       }
     },
+    "/api/v3/movie/{id}/folder": {
+      "get": {
+        "tags": [
+          "MovieFolder"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v3/movie/import": {
       "post": {
         "tags": [
@@ -9366,7 +9389,8 @@
             "nullable": true
           },
           "wikiUrl": {
-            "$ref": "#/components/schemas/HttpUri"
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -9609,48 +9633,6 @@
           },
           "trustCgnatIpAddresses": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "HttpUri": {
-        "type": "object",
-        "properties": {
-          "fullUri": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "scheme": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "host": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "port": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true,
-            "readOnly": true
-          },
-          "path": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "query": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "fragment": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
           }
         },
         "additionalProperties": false
@@ -10842,7 +10824,8 @@
           },
           "customFormatScore": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "indexerFlags": {
             "type": "integer",

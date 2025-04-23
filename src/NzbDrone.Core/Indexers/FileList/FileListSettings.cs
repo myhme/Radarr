@@ -17,6 +17,8 @@ namespace NzbDrone.Core.Indexers.FileList
             RuleFor(c => c.Username).NotEmpty();
             RuleFor(c => c.Passkey).NotEmpty();
 
+            RuleFor(c => c.Categories).NotEmpty();
+
             RuleFor(c => c.SeedCriteria).SetValidator(_ => new SeedCriteriaSettingsValidator());
         }
     }
@@ -32,12 +34,14 @@ namespace NzbDrone.Core.Indexers.FileList
 
             Categories = new[]
             {
-                (int)FileListCategories.Movie_HD,
                 (int)FileListCategories.Movie_SD,
+                (int)FileListCategories.Movie_HD,
+                (int)FileListCategories.Movie_HDRO,
                 (int)FileListCategories.Movie_4K
             };
 
             MultiLanguages = Array.Empty<int>();
+            FailDownloads = Array.Empty<int>();
             RequiredFlags = Array.Empty<int>();
         }
 
@@ -65,7 +69,10 @@ namespace NzbDrone.Core.Indexers.FileList
         [FieldDefinition(7, Type = FieldType.Select, SelectOptions = typeof(RealLanguageFieldConverter), Label = "IndexerSettingsMultiLanguageRelease", HelpText = "IndexerSettingsMultiLanguageReleaseHelpText", Advanced = true)]
         public IEnumerable<int> MultiLanguages { get; set; }
 
-        [FieldDefinition(8, Type = FieldType.Select, SelectOptions = typeof(IndexerFlags), Label = "IndexerSettingsRequiredFlags", HelpText = "IndexerSettingsRequiredFlagsHelpText", HelpLink = "https://wiki.servarr.com/radarr/settings#indexer-flags", Advanced = true)]
+        [FieldDefinition(8, Type = FieldType.Select, SelectOptions = typeof(FailDownloads), Label = "IndexerSettingsFailDownloads", HelpText = "IndexerSettingsFailDownloadsHelpText", Advanced = true)]
+        public IEnumerable<int> FailDownloads { get; set; }
+
+        [FieldDefinition(9, Type = FieldType.Select, SelectOptions = typeof(IndexerFlags), Label = "IndexerSettingsRequiredFlags", HelpText = "IndexerSettingsRequiredFlagsHelpText", HelpLink = "https://wiki.servarr.com/radarr/settings#indexer-flags", Advanced = true)]
         public IEnumerable<int> RequiredFlags { get; set; }
 
         public NzbDroneValidationResult Validate()
@@ -76,6 +83,10 @@ namespace NzbDrone.Core.Indexers.FileList
 
     public enum FileListCategories
     {
+        [FieldOption(Label = "Anime")]
+        Anime = 24,
+        [FieldOption(Label = "Animation")]
+        Animation = 15,
         [FieldOption("Movies SD")]
         Movie_SD = 1,
         [FieldOption("Movies DVD")]
