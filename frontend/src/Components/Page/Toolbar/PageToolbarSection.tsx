@@ -16,10 +16,10 @@ const BUTTON_WIDTH = parseInt(dimensions.toolbarButtonWidth);
 const SEPARATOR_MARGIN = parseInt(dimensions.toolbarSeparatorMargin);
 const SEPARATOR_WIDTH = 2 * SEPARATOR_MARGIN + 1;
 
-interface PageToolbarSectionProps {
+export interface PageToolbarSectionProps {
   children?:
-    | (ReactElement<PageToolbarButtonProps> | ReactElement<never>)
-    | (ReactElement<PageToolbarButtonProps> | ReactElement<never>)[];
+    | (ReactElement<PageToolbarButtonProps> | ReactElement<never> | null)
+    | (ReactElement<PageToolbarButtonProps> | ReactElement<never> | null)[];
   alignContent?: Extract<Align, keyof typeof styles>;
   collapseButtons?: boolean;
 }
@@ -80,8 +80,12 @@ function PageToolbarSection({
     if (buttonCount - 1 === maxButtons) {
       const overflowItems: PageToolbarButtonProps[] = [];
 
+      const buttonsWithoutSeparators = validChildren.filter(
+        (child) => Object.keys(child.props).length > 0
+      );
+
       return {
-        buttons: validChildren,
+        buttons: buttonsWithoutSeparators,
         buttonCount,
         overflowItems,
       };

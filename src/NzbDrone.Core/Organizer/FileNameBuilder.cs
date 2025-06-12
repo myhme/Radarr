@@ -38,10 +38,10 @@ namespace NzbDrone.Core.Organizer
         private readonly ICustomFormatCalculationService _formatCalculator;
         private readonly Logger _logger;
 
-        private static readonly Regex TitleRegex = new Regex(@"(?<tag>\{(?:imdb-|edition-))?\{(?<prefix>[- ._\[(]*)(?<token>(?:[a-z0-9]+)(?:(?<separator>[- ._]+)(?:[a-z0-9]+))?)(?::(?<customFormat>[ ,a-z0-9|+-]+(?<![- ])))?(?<suffix>[-} ._)\]]*)\}",
+        private static readonly Regex TitleRegex = new Regex(@"(?<tag>\{(?<prefix>[-{ ._\[(]*)(?:imdb(?:id)?-|edition-))?\{(?<prefix>[-{ ._\[(]*)(?<token>(?:[a-z0-9]+)(?:(?<separator>[- ._]+)(?:[a-z0-9]+))?)(?::(?<customFormat>[ ,a-z0-9|+-]+(?<![- ])))?(?<suffix>[-} ._)\]]*)\}",
                                                              RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
-        public static readonly Regex ReleaseYearRegex = new Regex(@"\{[\[\(]?Release[- ._]Year[\]\)]?\}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        public static readonly Regex ReleaseYearRegex = new Regex(@"\{[-{ ._\[(]*Release[- ._]Year[-} ._)\]]*\}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public static readonly Regex MovieTitleRegex = new Regex(@"(?<token>\{(?:Movie)(?<separator>[- ._])(?:Clean)?(?:OriginalTitle|Title(?:The)?)(?::(?<customFormat>[a-z0-9|-]+))?\})",
                                                                             RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -317,7 +317,7 @@ namespace NzbDrone.Core.Organizer
         {
             if (movieFile.Edition.IsNotNullOrWhiteSpace())
             {
-                tokenHandlers["{Edition Tags}"] = m => Truncate(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(movieFile.Edition.ToLower()), m.CustomFormat);
+                tokenHandlers["{Edition Tags}"] = m => Truncate(GetEditionToken(movieFile), m.CustomFormat);
             }
         }
 
@@ -531,6 +531,16 @@ namespace NzbDrone.Core.Organizer
             {
                 return response;
             }
+        }
+
+        private string GetEditionToken(MovieFile movieFile)
+        {
+            var edition = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(movieFile.Edition.ToLowerInvariant());
+
+            edition = Regex.Replace(edition, @"((?:\b|_)\d{1,3}(?:st|th|rd|nd)(?:\b|_))", match => match.Groups[1].Value.ToLowerInvariant(), RegexOptions.IgnoreCase);
+            edition = Regex.Replace(edition, @"((?:\b|_)(?:IMAX|3D|SDR|HDR|DV)(?:\b|_))", match => match.Groups[1].Value.ToUpperInvariant(), RegexOptions.IgnoreCase);
+
+            return edition;
         }
 
         private void UpdateMediaInfoIfNeeded(string pattern, MovieFile movieFile, Movie movie)

@@ -42,7 +42,7 @@
     "AuthForm": "Skjemaer (påloggingsside)",
     "Automatic": "Automatisk",
     "AutomaticSearch": "Automatisk Søk",
-    "AutoUnmonitorPreviouslyDownloadedMoviesHelpText": "Filmer som er slettet fra disken, blir automatisk overvåket i {appName}",
+    "UnmonitorDeletedMoviesHelpText": "Filmer som er slettet fra disken, blir automatisk overvåket i {appName}",
     "AvailabilityDelay": "Tilgjengelighet Forsinkelse",
     "AvailabilityDelayHelpText": "Hvor lang tid før eller etter tilgjengelig dato for å søke etter film",
     "Backup": "Sikkerhetskopiering",
@@ -274,7 +274,6 @@
     "DeleteSelectedImportListsMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
     "DeleteAutoTagHelpText": "Er du sikker på at du vil slette formattaggen {0}?",
     "DeleteSelectedDownloadClientsMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
-    "DeleteRootFolderMessageText": "Er du sikker på at du vil slette formattaggen {0}?",
     "AddConnection": "Legg til tilkobling",
     "DisabledForLocalAddresses": "Deaktivert for lokale adresser",
     "Released": "utgivelse",
@@ -342,5 +341,6 @@
     "IndexerSettingsCategories": "Kategorier",
     "History": "Historikk",
     "Tba": "Venter",
-    "AddNewMovieRootFolderHelpText": "Undermappa \"{folder}\" vil bli automatisk laget"
+    "AddNewMovieRootFolderHelpText": "Undermappa \"{folder}\" vil bli automatisk laget",
+    "ReleaseProfile": "utgivelseprofil"
 }

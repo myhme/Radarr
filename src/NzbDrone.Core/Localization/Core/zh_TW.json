@@ -51,7 +51,7 @@
     "Backup": "備份",
     "UpgradeUntilMovieHelpText": "一旦達到此品質，{appName}將不再下載該電影",
     "AptUpdater": "使用apt安裝更新",
-    "AutoUnmonitorPreviouslyDownloadedMoviesHelpText": "從磁碟中刪除的電影將自動在{appName}中取消監控",
+    "UnmonitorDeletedMoviesHelpText": "從磁碟中刪除的電影將自動在{appName}中取消監控",
     "BackupFolderHelpText": "相對路徑將位於{appName}的AppData目錄下",
     "Blocklist": "封鎖清單",
     "BlocklistRelease": "封鎖清單版本",
@@ -236,7 +236,7 @@
     "DelayProfiles": "延遲配置",
     "Ratings": "評分",
     "EditConditionImplementation": "新增連接 - {implementationName}",
-    "UnableToLoadRootFolders": "無法加進根目錄",
+    "RootFoldersLoadError": "無法加進根目錄",
     "Collections": "蒐藏",
     "ApplyTagsHelpTextHowToApplyMovies": "如何套用標籤在所選擇的輸入清單",
     "YouCanAlsoSearch": "您也可以使用該電影的TMDbID來搜尋。例如「tmdb:71663」",
@@ -294,5 +294,6 @@
     "Tba": "待確定",
     "IndexerHDBitsSettingsCategories": "類別",
     "IndexerHDBitsSettingsCodecs": "編解碼器",
-    "IndexerSettingsCategories": "類別"
+    "IndexerSettingsCategories": "類別",
+    "ReleaseProfile": "發布配置"
 }

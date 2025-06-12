@@ -142,7 +142,7 @@
     "Automatic": "Automatski",
     "AutomaticSearch": "Automatska Pretraga",
     "AutoRedownloadFailedHelpText": "Automatski pretraži i pokušaj preuzeti drukčiju verziju",
-    "AutoUnmonitorPreviouslyDownloadedMoviesHelpText": "U {appName}u se automatski isključuje nadzor za filmove koji su izbrisani sa diska",
+    "UnmonitorDeletedMoviesHelpText": "U {appName}u se automatski isključuje nadzor za filmove koji su izbrisani sa diska",
     "AvailabilityDelay": "Mogućnost Odgode",
     "AvailabilityDelayHelpText": "Vremenski iznos prije ili nakon dostupnog datuma za pretragu filma",
     "BackupFolderHelpText": "Relativne putanje će biti unutar {appName}ovog AppData direktorija",
@@ -310,7 +310,6 @@
     "DeleteImportListExclusion": "Dodaj na Listu Isključenja",
     "ImportListExclusions": "Dodaj na Listu Isključenja",
     "DownloadClientSettingsRecentPriority": "Prioritet Klijenata",
-    "DeleteRootFolderMessageText": "Jeste li sigurni da želite obrisati ovaj profil odgode?",
     "DeleteSelectedImportListExclusionsMessageText": "Jeste li sigurni da želite izbrisati ovu uvoznu listu isključenja?",
     "DeleteSelectedCustomFormats": "Kloniraj Prilagođeni Format",
     "AlternativeTitlesLoadError": "Neuspješno učitavanje alternativnih naslova.",
@@ -355,7 +354,7 @@
     "AddDownloadClientError": "Nesupješno dodavanje klijenta za preuzimanje, molimo pokušaj ponovno.",
     "Any": "BIlo koji",
     "AppUpdatedVersion": "{appName} je ažuriran na verziju '{version}', kako bi najnovije promjene bile aktivne potrebno je ponovno učitati {appName}",
-    "UnableToLoadRootFolders": "Neuspješno dodavanje korijenske mape",
+    "RootFoldersLoadError": "Neuspješno dodavanje korijenske mape",
     "EditReleaseProfile": "Dodaj profil verzije",
     "EditDownloadClientImplementation": "Dodaj Klijenta za Preuzimanje- {implementationName}",
     "EditImportListImplementation": "Dodaj Listu Za Uvoz - {implementationName}",
@@ -379,5 +378,6 @@
     "ImportListsTraktSettingsGenres": "Žanr",
     "IndexerSettingsCategories": "Kategorije",
     "IndexerHDBitsSettingsCategories": "Kategorije",
-    "IndexerHDBitsSettingsCodecs": "Kodek"
+    "IndexerHDBitsSettingsCodecs": "Kodek",
+    "ReleaseProfile": "profil verzije"
 }
